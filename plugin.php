@@ -6,14 +6,14 @@
   Author: John Gardner
   Author URI: http://www.arconixpc.com
 
-  Version: 0.1
+  Version: 0.2
 
   License: GNU General Public License v2.0
   License URI: http://www.opensource.org/licenses/gpl-license.php
  */
 
 
-define( 'ACFS_VERSION', '0.1' );
+define( 'ACFS_VERSION', '0.2' );
 define( 'ACFS_URL', plugin_dir_url( __FILE__ ) );
 
 add_action( 'after_setup_theme', 'acfs_setup', 15 );
@@ -117,15 +117,29 @@ function acfs_get_image_sizes() {
  *
  * @return type array Post Types
  * @since 0.1
+ * @version 0.2
  */
 function acfs_get_post_types() {
 
     $post_types = get_post_types( '', 'names' );
-
-    /** We don't want revision, nav_menu_item and attachment post types */
-    if( isset( $post_types['revision'] ) ) unset( $post_types['revision'] );
-    if( isset( $post_types['nav_menu_item'] ) ) unset( $post_types['nav_menu_item'] );
-    if( isset( $post_types['attachment'] ) ) unset( $post_types['attachment'] );
+    
+    /** 
+     * List of post types we don't want to show in the select box
+     * This list can be added to by putting a filter in your functions file
+     */
+    $excl_post_types = apply_filters( 'acfs_exclude_post_types',
+        array( 
+            'revision', 
+            'nav_menu_item', 
+            'attachment', 
+            'wpcf7_contact_form' 
+        )
+    );
+    
+    /** Loop through and exclude the items in the list */
+    foreach( $excl_post_types as $excl_post_type ) {
+        if( isset( $post_types[$excl_post_type] ) ) unset( $post_types[$excl_post_type] );
+    }
 
     return $post_types;
 }

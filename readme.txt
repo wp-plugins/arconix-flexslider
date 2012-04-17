@@ -3,7 +3,7 @@ Contributors: jgardner03
 Tags: arconix, flexslider, slider
 Requires at least: 3.1
 Tested up to: 3.3.1
-Stable tag: 0.1
+Stable tag: 0.2
 
 A multi-purpose responsive jQuery slider that supports custom post types and responsive themes.
 
@@ -27,9 +27,9 @@ Upgrade normally via your Wordpress admin -> Plugins panel.
 
 == Frequently Asked Questions ==
 
-= Where can I find more information on how to use the shortcodes?  =
+= Where can I find more information on how to use the plugin? =
 
-* Visit the plugin's [Wiki Page](http://arcnx.co/afswiki "Arconix Shortcodes Wiki") for documentation on all the shortcodes
+* Visit the plugin's [Wiki Page](http://arcnx.co/afswiki "Arconix FlexSlider Wiki") for documentation on the widget
 * Tutorials on advanced plugin usage can be found at [Arconix Computers](http://arconixpc.com/tag/arconix-flexslider)
 
 = What is responsive design? =
@@ -53,5 +53,9 @@ I can certainly look into it. Contact me through [Twitter](http://arcnx.co/twitt
 
 == Changelog ==
 
-= 0.1 =
+= 0.2 - 2012.04.16 =
+* Added additional options for image captions
+* Only return posts to display if they have featured images
+
+= 0.1 - 2012.03.23 =
 * Initial release

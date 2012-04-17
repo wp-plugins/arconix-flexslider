@@ -18,6 +18,7 @@ class Arconix_FlexSlider_Widget extends WP_Widget {
      * Constructor. Set the default widget options, create widget, and load the js
      *
      * @since 0.1
+     * @version 0.2
      */
     function __construct() {
 
@@ -26,7 +27,7 @@ class Arconix_FlexSlider_Widget extends WP_Widget {
 	    'post_type'	    => '',
 	    'image_size'    => '',
 	    'post_num'	    => 5,
-	    'show_caption'  => 0
+	    'show_caption'  => 'none'
 	);
 
         $widget_ops = array(
@@ -62,6 +63,7 @@ class Arconix_FlexSlider_Widget extends WP_Widget {
      * @param type $args Display arguments including before_title, after_title, before_widget, and after_widget.
      * @param type $instance The settings for the particular instance of the widget
      * @since 0.1
+     * @version 0.2
      */
     function widget( $args, $instance ) {
 
@@ -74,13 +76,14 @@ class Arconix_FlexSlider_Widget extends WP_Widget {
 	echo $before_widget;
 
 	/** Title of widget (before and after defined by themes) */
-	if( !empty( $instance['title'] ) )
+	if( ! empty( $instance['title'] ) )
 	    echo $before_title . apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base ) . $after_title;
 
 
 	$query_args = array(
 	    'post_type' => $instance['post_type'],
 	    'posts_per_page' => $instance['post_num'],
+	    'meta_key' => '_thumbnail_id' /** Should pull only posts with featured images */
 	);
 
 	$flex_posts = new WP_Query( $query_args );
@@ -89,21 +92,43 @@ class Arconix_FlexSlider_Widget extends WP_Widget {
 	    echo '<div class="flex-container">
                 <div class="flexslider">
                 <ul class="slides">';
+
                 while ( $flex_posts->have_posts() ) : $flex_posts->the_post();
+
                     echo '<li><a href="';
                     the_permalink();
                     echo '" rel="bookmark">';
                     the_post_thumbnail( $instance['image_size'] );
-                    if ( ! empty( $instance['show_caption'] ) ) {
-                        echo '<p class="flex-caption">';
-                        the_title();
-                        echo '</p>';
+
+		    switch( $instance['show_caption'] ) {
+			case 'post title':
+			    echo '<p class="flex-caption">';
+			    the_title();
+			    echo '</p>';
+			    break;
+
+			case 'image title':
+                            global $post;
+                            echo '<p class="flex-caption">' . get_post( get_post_thumbnail_id( $post->ID ) )->post_title . '</p>';			    
+			    break;
+
+			case 'image caption':
+                            global $post;                            
+                            echo '<p class="flex-caption">' . get_post( get_post_thumbnail_id( $post->ID ) )->post_excerpt . '</p>';                            
+			    break;
+
+			default:
+			    break;
+		    
                     }
+
                     echo '</a></li>';
+
                 endwhile;
+
             echo '</ul></div></div>';
         }
-        
+
         /** After widget (defined by themes) */
         echo $after_widget;
 
@@ -131,6 +156,7 @@ class Arconix_FlexSlider_Widget extends WP_Widget {
      *
      * @param array $instance Current settings
      * @since 0.1
+     * @version 0.2
      */
     function form( $instance ) {
 
@@ -162,7 +188,7 @@ class Arconix_FlexSlider_Widget extends WP_Widget {
 		<?php
 		$sizes = acfs_get_image_sizes();
 		foreach( (array) $sizes as $name => $size )
-		    echo '<option value="' . esc_attr( $name ) . '" ' . selected( $name, $instance['image_size'], FALSE ) . '>' . esc_html( $name ).' ( ' . $size['width'] . 'x' . $size['height'] . ' )</option>';
+		    echo '<option value="' . esc_attr( $name ) . '" ' . selected( $name, $instance['image_size'], FALSE ) . '>' . esc_html( $name ) . ' ( ' . $size['width'] . 'x' . $size['height'] . ' )</option>';
 		?>
 	    </select>
 	</p>
@@ -173,10 +199,16 @@ class Arconix_FlexSlider_Widget extends WP_Widget {
 	    <input id="<?php echo esc_attr( $this->get_field_id( 'post_num' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_num' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['post_num'] ); ?>" size="3" /></p>
 	</p>
 
-	<!-- Show Caption: Check Box -->
+	<!-- Show Caption: Select Box -->
 	<p>
-	    <input id="<?php echo $this->get_field_id( 'show_caption' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'show_caption' ); ?>" value="1" <?php checked( $instance['show_caption'] ); ?>/>
-	    <label for="<?php echo $this->get_field_id( 'show_caption' ); ?>"><?php _e( 'Show post title as caption', 'acfs' ); ?></label>
+	    <label for="<?php echo $this->get_field_id( 'show_caption' ); ?>"><?php _e( 'Show caption', 'acfs' ); ?></label>
+	    <select id="<?php echo $this->get_field_id( 'show_caption' ); ?>" name="<?php echo $this->get_field_name( 'show_caption' ); ?>">
+		<?php
+		$captions = array( 'none', 'post title', 'image title', 'image caption' );
+		foreach( $captions as $caption )
+		    echo '<option value="' . esc_attr( $caption ) . '" ' . selected( $caption, $instance['show_caption'], FALSE ) . '>' . esc_html( $caption ) . '</option>';
+		?>
+	    </select>
 	</p>
 
 	<?php
