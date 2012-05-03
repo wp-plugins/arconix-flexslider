@@ -3,7 +3,7 @@ Contributors: jgardner03
 Tags: arconix, flexslider, slider
 Requires at least: 3.1
 Tested up to: 3.3.1
-Stable tag: 0.2
+Stable tag: 0.2.1
 
 A multi-purpose responsive jQuery slider that supports custom post types and responsive themes.
 
@@ -52,6 +52,9 @@ I can certainly look into it. Contact me through [Twitter](http://arcnx.co/twitt
 3. Builtin and user-added image sizes
 
 == Changelog ==
+
+= 0.2.1 - 2012.05.03 =
+* fixed ie8 image scale issue
 
 = 0.2 - 2012.04.16 =
 * Added additional options for image captions
