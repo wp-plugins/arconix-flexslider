@@ -7,7 +7,7 @@
   Author: John Gardner
   Author URI: http://www.arconixpc.com
 
-  Version: 0.5
+  Version: 0.5.1
 
   License: GNU General Public License v2.0
   License URI: http://www.opensource.org/licenses/gpl-license.php

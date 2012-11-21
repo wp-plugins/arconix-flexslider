@@ -5,10 +5,18 @@
  * These files can be overwritten by including files in your theme's directory
  *
  * @since 0.1
- * @version 0.5
+ * @version 0.5.1
  */
 function load_scripts() {
-    wp_register_script( 'flexslider', ACFS_JS_URL . 'jquery.flexslider-min.js', array( 'jquery' ), '1.8', true );
+    /* Provide script registration args so they can be filtered if necessary */
+    $script_args = apply_filters( 'arconix_flexslider_reg', array(
+        'url' => ACFS_JS_URL . 'jquery.flexslider-min.js',
+        'ver' => '1.8',
+        'dep' => 'jquery'
+    ) );
+
+    /* Register the flexslider script using those args */
+    wp_register_script( 'flexslider', $script_args['url'], array( $script_args['dep'] ), $script_args['ver'], true );
 
     /* Allow user to override javascript by including his own */
     if( file_exists( get_stylesheet_directory() . '/arconix-flexslider.js' ) ) {
