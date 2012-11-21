@@ -62,6 +62,9 @@ That's fantastic! Feel free to submit a pull request over at [Github](http://arc
 
 == Changelog ==
 
+= 0.5.1 =
+* Added a filter to the flexslider script registration, allowing the use of a different flexslider script than what's supplied in the plugin
+
 = 0.5 =
 * Added ability to call the slider from a shortcode
 * Added the ability to display the chosen post-type's content (either in whole or just the excerpt)
