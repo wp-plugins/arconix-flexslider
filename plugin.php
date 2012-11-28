@@ -7,7 +7,7 @@
   Author: John Gardner
   Author URI: http://www.arconixpc.com
 
-  Version: 0.5.1
+  Version: 0.5.2
 
   License: GNU General Public License v2.0
   License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -54,11 +54,14 @@ class Arconix_FlexSlider {
      * @since 0.5
      */
     function hooks() {
-        add_action( 'wp_enqueue_scripts', 'load_scripts' );
-        add_action( 'init', 'register_shortcodes' );
-        add_action( 'widgets_init', 'create_widget' );
-        add_action( 'wp_dashboard_setup', 'register_dashboard_widget' );
-        add_action( 'wp_footer', 'print_scripts' );
+        /* Set up a prefix to minimize conflicts */
+        $prefix = 'acfs_';
+
+        add_action( 'wp_enqueue_scripts', $prefix . 'load_scripts' );
+        add_action( 'init', $prefix . 'register_shortcodes' );
+        add_action( 'widgets_init', $prefix . 'create_widget' );
+        add_action( 'wp_dashboard_setup', $prefix . 'register_dashboard_widget' );
+        add_action( 'wp_footer', $prefix . 'print_scripts' );
 
         require_once( ACFS_INCLUDES_DIR . 'functions.php' );
         require_once( ACFS_INCLUDES_DIR . 'widget.php' );

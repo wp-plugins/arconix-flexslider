@@ -65,8 +65,8 @@ function get_modified_post_type_list() {
  *
  * @since 0.1
  */
-function register_dashboard_widget() {
-    wp_add_dashboard_widget( 'ac-flexslider', 'Arconix FlexSlider', 'dashboard_widget_output' );
+function acfs_register_dashboard_widget() {
+    wp_add_dashboard_widget( 'ac-flexslider', 'Arconix FlexSlider', 'acfs_dashboard_widget_output' );
 }
 
 /**
@@ -75,7 +75,7 @@ function register_dashboard_widget() {
  * @since 0.1
  * @version 0.5
  */
-function dashboard_widget_output() {
+function acfs_dashboard_widget_output() {
     echo '<div class="rss-widget">';
 
     wp_widget_rss_output( array(

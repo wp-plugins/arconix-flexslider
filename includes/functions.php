@@ -7,7 +7,7 @@
  * @since 0.1
  * @version 0.5.1
  */
-function load_scripts() {
+function acfs_load_scripts() {
     /* Provide script registration args so they can be filtered if necessary */
     $script_args = apply_filters( 'arconix_flexslider_reg', array(
         'url' => ACFS_JS_URL . 'jquery.flexslider-min.js',
@@ -46,7 +46,7 @@ function load_scripts() {
  *
  * @since 0.5
  */
-function print_scripts() {
+function acfs_print_scripts() {
     if( !Arconix_FlexSlider::$load_flex_js )
         return;
 
@@ -84,7 +84,7 @@ function flexslider_shortcode( $atts, $content = null ) {
  *
  * @since 0.5
  */
-function register_shortcodes() {
+function acfs_register_shortcodes() {
     add_shortcode( 'ac-flexslider', 'flexslider_shortcode' );
 }
 

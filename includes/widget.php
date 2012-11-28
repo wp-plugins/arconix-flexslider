@@ -4,7 +4,7 @@
  *
  * @since 0.1
  */
-function create_widget() {
+function acfs_create_widget() {
     register_widget( 'Arconix_FlexSlider_Widget' );
 }
 
@@ -97,11 +97,11 @@ class Arconix_FlexSlider_Widget extends WP_Widget {
     function update( $new_instance, $old_instance ) {
         $instance = $old_instance;
 	$instance['title'] = strip_tags( $new_instance['title'] );
-	$instance['posts_per_page'] = (int) $new_instance['posts_per_page'];
+	$instance['posts_per_page'] = absint( $new_instance['posts_per_page'] );
         $instance['category_name'] = strip_tags( $new_instance['category_name'] );
         $instance['tag'] = strip_tags( $new_instance['tag'] );
 
-	return $new_instance;
+	return $instance;
     }
 
     /**
@@ -145,7 +145,7 @@ class Arconix_FlexSlider_Widget extends WP_Widget {
         <!-- Tag: Input Box -->
 	<p>
 	    <label for="<?php echo $this->get_field_id( 'tag' ); ?>"><?php _e( 'Show posts only from a specific tag or comma separated tags (use the slug form)', 'acfs' ); ?>:</label>
-	    <input class="widefat" type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" />
+	    <input class="widefat" type="text" id="<?php echo $this->get_field_id( 'tag' ); ?>" name="<?php echo $this->get_field_name( 'tag' ); ?>" value="<?php echo $instance['tag']; ?>" />
 	</p>
         <!-- Orderby: Select Box -->
 	<p>
