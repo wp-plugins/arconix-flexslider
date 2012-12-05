@@ -7,7 +7,7 @@
   Author: John Gardner
   Author URI: http://www.arconixpc.com
 
-  Version: 0.5.2
+  Version: 0.5.3
 
   License: GNU General Public License v2.0
   License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -39,7 +39,7 @@ class Arconix_FlexSlider {
      * @since 0.5
      */
     function constants() {
-        define( 'ACFS_VERSION', '0.5');
+        define( 'ACFS_VERSION', '0.5.3');
         define( 'ACFS_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
         define( 'ACFS_INCLUDES_URL', trailingslashit( ACFS_URL . 'includes' ) );
         define( 'ACFS_IMAGES_URL', trailingslashit( ACFS_URL . 'images' ) );

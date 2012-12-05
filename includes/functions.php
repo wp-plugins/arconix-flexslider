@@ -91,7 +91,7 @@ function acfs_register_shortcodes() {
 /**
  * Returns flexslider query results
  *
- * @param type $args array
+ * @param array $args
  * @since 0.5
  */
 function get_flexslider_query( $args = '' ) {
@@ -119,6 +119,8 @@ function get_flexslider_query( $args = '' ) {
     $query_args = array(
         'post_type' => $post_type,
         'posts_per_page' => $posts_per_page,
+        'category_name' => $category_name,
+        'tag' => $tag,
         'orderby' => $orderby,
         'order' => $order,
         'meta_key' => '_thumbnail_id' // Should pull only content with featured images
@@ -150,15 +152,21 @@ function get_flexslider_query( $args = '' ) {
 
             switch( $show_caption ) {
                 case 'post title':
+                case 'post-title':
+                case 'posttitle':
                     $return .= '<p class="flex-caption">' . get_the_title() . '</p>';
                     break;
 
                 case 'image title':
+                case 'image-title':
+                case 'imagetitle':
                     global $post;
                     $return .= '<p class="flex-caption">' . get_post( get_post_thumbnail_id( $post->ID ) )->post_title . '</p>';
                     break;
 
                 case 'image caption':
+                case 'image-caption':
+                case 'imagecaption':
                     global $post;
                     $return .= '<p class="flex-caption">' . get_post( get_post_thumbnail_id( $post->ID ) )->post_excerpt . '</p>';
                     break;

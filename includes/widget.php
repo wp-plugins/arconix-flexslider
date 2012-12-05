@@ -95,13 +95,13 @@ class Arconix_FlexSlider_Widget extends WP_Widget {
      * @version 0.5
      */
     function update( $new_instance, $old_instance ) {
-        $instance = $old_instance;
+        $instance = array();
 	$instance['title'] = strip_tags( $new_instance['title'] );
 	$instance['posts_per_page'] = absint( $new_instance['posts_per_page'] );
         $instance['category_name'] = strip_tags( $new_instance['category_name'] );
         $instance['tag'] = strip_tags( $new_instance['tag'] );
 
-	return $instance;
+	return $new_instance;
     }
 
     /**
