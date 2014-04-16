@@ -3,7 +3,7 @@ Contributors: jgardner03
 Donate link: http://arcnx.co/acfsdonation
 Tags: arconix, flexslider, slider
 Requires at least: 3.4
-Tested up to: 3.4.2
+Tested up to: 3.9
 Stable tag: 0.5.3
 
 A multi-purpose responsive jQuery slider that supports custom post types and responsive themes.
