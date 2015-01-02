@@ -1,20 +1,37 @@
 === Arconix Flexslider ===
 Contributors: jgardner03
 Donate link: http://arcnx.co/acfsdonation
-Tags: arconix, flexslider, slider
-Requires at least: 3.4
-Tested up to: 3.9
-Stable tag: 0.5.3
+Tags: arconix, flexslider, slider, carousel, portfolio, testimonial, responsive
+Requires at least: 4.0
+Tested up to: 4.1
+Stable tag: 1.0.0
+License: GPLv2 or later
 
-A multi-purpose responsive jQuery slider that supports custom post types and responsive themes.
+A multi-purpose responsive slider that supports custom post types and responsive themes.
 
 == Description ==
 
-Arconix Flexslider is a plugin that utilizes the excellent, responsive FlexSlider jQuery plugin. This plugin supports a user-selected post types in addition to posts and pages on a per-widget basis, which is perfect for featured posts or recent portfolio items on the homepage. It can be called by placing the widget in a widget area or by using the shortcode `[ac-flexslider]`
+Showcase your existing content in a rotating slider or multi-image carousel that fits the user's display. Easily customizable, supporting default and custom post types with or without images. Use a shortcode or widget to display your content.
 
 = Features =
-* Resizes based on the user's device
-* Supports built-in and user-created post-types and image sizes for maximum flexibility
+* Resizes based on the user's device, supporting touch navigation for phones and tablets
+* Supports default and user-created post-types and image sizes for unmatched flexibility
+* Traditional single-item, rotating slider or multi-image carousel
+* Supports upgrade-safe CSS and javascript customizations
+
+= Great for =
+* Creating a "Recent Work" image carousel for your Portfolio
+* Adding a Testimonial rotator to your sidebar or footer
+* and many more...
+
+= Documentation =
+Documentation can be found [here](http://arcnx.co/afswiki)
+
+= Demo =
+Head over to the [demo site](http://demo.arconixpc.com/arconix-flexslider) to see the plugin in action
+
+= Note =
+This plugin does not create a dedicated "Slide" Custom Post Type. There are plenty of plugins in the WordPress repository for that purpose. I recommend [Meteor Slides](https://wordpress.org/plugins/meteor-slides/)
 
 == Installation ==
 
@@ -29,17 +46,22 @@ Upgrade normally via your WordPress admin -> Plugins panel.
 == Frequently Asked Questions ==
 
 = How do I use the slider?  =
-
 * Place the Arconix - Flexslider widget in the desired widget area
 * Use the shortcode `[ac-flexslider]` on a post, page or other area
 * Place `<?php echo do_shortcode( "[ac-flexslider]" ); ?>` in the desired page template
 
 = Is there any other documentation? =
-* Visit the plugin's [Wiki Page](http://arcnx.co/afswiki) for all the plugin's documentation
+* Visit the plugin's [Documentation](http://arcnx.co/afswiki) for setup and configuration information
 * Tutorials on advanced plugin usage can be found at [Arconix Computers](http://arconixpc.com/tag/arconix-flexslider)
 
 = The slider isn't styled properly =
-* With no 2 themes exactly alike, it's extremely difficult to style a plugin that seamlessly integrates without issue. That's why I made the plugin flexible -- If you'd like tighter integration between your theme and the flexslider, copy `includes/flexslider.css` to the root of your theme's folder and rename it to `arconix-flexslider.css`. My plugin will try to load that file first, which means you can make your changes and not risk losing them on a plugin upgrade.
+With no 2 themes exactly alike, it's extremely difficult to style a plugin that seamlessly integrates without issue. That's why the plugin was made so flexible -- Tighter integration between your theme and the flexslider can be achieved by copying `includes/css/arconix-flexslider.css` to the root of your theme folder. The plugin will load that file instead, keeping your changes safe on upgrades.
+
+= What script powers the slider? =
+This plugin uses [Owl Carousel](http://owlgraphic.com/owlcarousel/) slider. While this plugin doesn't currently have built-in support for all the options supported by Owl Carousel, knowledgeable users will be able to implement nearly any option they'd like.
+
+= I want to change how the slider works =
+Most changes can be achieved by copying `includes/js/arconix-flexslider.js` to the root of your theme folder and then making any modifications there. That file will be loaded in place of the plugin default and will keep your changes safe on upgrade.
 
 = What is responsive design? =
 Responsive design is in essence designing a website to cater to the dimensions of the user's device. It has become very popular with the proliferation of web-enabled smartphones and tablets.
@@ -59,8 +81,19 @@ That's fantastic! Feel free to submit a pull request over at [Github](http://arc
 1. Widget Options overview
 2. Standard and user-created post-type selection box
 3. Builtin and user-added image sizes
-
+4. Slider and carousel setup
+5. Text-focused (testimonials) slider display
 == Changelog ==
+
+= 1.0.0 =
+**This version represents a significant rewrite of the plugin including a completely different slider script. Best efforts were made to maintain as much backwards compatibility as possible, however some filter names and functions have changed, therefore it is highly recommended that existing users who've made modifications test this update on a local host or staging environment before deploying to a live environment.**
+
+* Switched from Flexslider script to Owl Carousel
+* Added an image carousel option
+* Now supports content-focused post types (e.g. testimonials, etc...)
+* Improved inline documentation
+* Updated filter names to be more consistent
+* Massive improvement to code efficiency and structure
 
 = 0.5.3 =
 * Fixed a bug in the widget update function

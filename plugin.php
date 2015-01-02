@@ -2,74 +2,86 @@
 /*
   Plugin Name: Arconix FlexSlider
   Plugin URI: http://www.arconixpc.com/plugins/arconix-flexslider
-  Description: A featured slider using WooThemes FlexSlider script.
+  Description: A multi-purpose responsive jQuery slider that supports custom post types and responsive themes.
 
   Author: John Gardner
   Author URI: http://www.arconixpc.com
 
-  Version: 0.5.3
+  Version: 1.0.0
 
-  License: GNU General Public License v2.0
+  License: GPLv2 or later
   License URI: http://www.opensource.org/licenses/gpl-license.php
  */
 
-class Arconix_FlexSlider {
+class Arconix_Flexslider_Plugin {
 
     /**
-     * Boolean for loading the javascript
+     * Stores the current version of the plugin.
      *
-     * @var boolean true|false
-     * @since 0.5
+     * @since   1.0.0
+     * @access  private
+     * @var     string      $version    Current plugin version
      */
-    public static $load_flex_js;
+    private $version;
 
     /**
-     * Constructor
+     * The directory path to the plugin file's includes folder.
      *
-     * @since 0.5
+     * @since   1.0.0
+     * @access  private
+     * @var     string      $inc    The directory path to the includes folder
      */
-    function __construct() {
-        $this->constants();
-        $this->hooks();
+    private $inc;
+
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @since   1.0.0
+     */
+    public function __construct() {
+        $this->version = '1.0.0';
+        $this->inc = trailingslashit( plugin_dir_path( __FILE__ ) . '/includes' );
+        $this->load_dependencies();
+        $this->load_admin();
     }
 
     /**
-     * Define the constants
+     * Load the required dependencies for the plugin.
      *
-     * @since 0.5
+     * - Admin loads the backend functionality
+     * - Public provides front-end functionality
+     * - Dashboard Glancer loads the helper class for the admin dashboard
+     *
+     * @since   1.0.0
      */
-    function constants() {
-        define( 'ACFS_VERSION', '0.5.3');
-        define( 'ACFS_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
-        define( 'ACFS_INCLUDES_URL', trailingslashit( ACFS_URL . 'includes' ) );
-        define( 'ACFS_IMAGES_URL', trailingslashit( ACFS_URL . 'images' ) );
-        define( 'ACFS_JS_URL', trailingslashit( ACFS_INCLUDES_URL . 'js' ) );
-        define( 'ACFS_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
-        define( 'ACFS_INCLUDES_DIR', trailingslashit( ACFS_DIR . 'includes' ) );
+    private function load_dependencies() {
+        require_once( $this->inc . 'class-arconix-flexslider-admin.php' );
+        require_once( $this->inc . 'class-arconix-flexslider-public.php' );
+        require_once( $this->inc . 'class-arconix-flexslider-widget.php' );
     }
 
     /**
-     * Run the necessary functions and pull in the necessary supporting files
+     * Load the Administration portion
      *
-     * @since 0.5
+     * @since   1.0.0
      */
-    function hooks() {
-        /* Set up a prefix to minimize conflicts */
-        $prefix = 'acfs_';
-
-        add_action( 'wp_enqueue_scripts', $prefix . 'load_scripts' );
-        add_action( 'init', $prefix . 'register_shortcodes' );
-        add_action( 'widgets_init', $prefix . 'create_widget' );
-        add_action( 'wp_dashboard_setup', $prefix . 'register_dashboard_widget' );
-        add_action( 'wp_footer', $prefix . 'print_scripts' );
-
-        require_once( ACFS_INCLUDES_DIR . 'functions.php' );
-        require_once( ACFS_INCLUDES_DIR . 'widget.php' );
-        if( is_admin() )
-            require_once( ACFS_INCLUDES_DIR . 'admin.php' );
+    private function load_admin() {
+        new Arconix_Flexslider_Admin( $this->get_version() );
     }
 
+    /**
+     * Get the current version of the plugin
+     *
+     * @since   1.0.0
+     * @return  string  Plugin current version
+     */
+    public function get_version() {
+        return $this->version;
+    }
 }
 
-new Arconix_FlexSlider;
-?>
+/** Vroom vroom */
+add_action( 'plugins_loaded', 'arconix_flexslider_plugin_run' );
+function arconix_flexslider_plugin_run() {
+    new Arconix_Flexslider_Plugin;
+}
