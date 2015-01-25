@@ -79,16 +79,16 @@ class Arconix_Flexslider_Admin {
             'dep' => 'jquery'
         ) );
 
-        wp_register_script( 'flexslider', $script_args['url'], array( $script_args['dep'] ), $script_args['ver'], true );
+        wp_register_script( 'owl-carousel', $script_args['url'], array( $script_args['dep'] ), $script_args['ver'], true );
 
         // Register the javascript - Check the child theme directory first, the parent theme second, otherwise load the plugin version
         if( apply_filters( 'pre_register_arconix_flexslider_js', true ) ) {
             if( file_exists( get_stylesheet_directory() . '/arconix-flexslider.js' ) )
-                wp_register_script( 'arconix-flexslider-js', get_stylesheet_directory_uri() . '/arconix-flexslider.js', array( 'flexslider' ), $this->version, true );
+                wp_register_script( 'arconix-flexslider-js', get_stylesheet_directory_uri() . '/arconix-flexslider.js', array( 'owl-carousel' ), $this->version, true );
             elseif( file_exists( get_template_directory() . '/arconix-flexslider.js' ) )
-                wp_register_script( 'arconix-flexslider-js', get_template_directory_uri() . '/arconix-flexslider.js', array( 'flexslider' ), $this->version, true );
+                wp_register_script( 'arconix-flexslider-js', get_template_directory_uri() . '/arconix-flexslider.js', array( 'owl-carousel' ), $this->version, true );
             else
-                wp_register_script( 'arconix-flexslider-js', $this->url . 'js/arconix-flexslider.js', array( 'flexslider' ), $this->version, true );
+                wp_register_script( 'arconix-flexslider-js', $this->url . 'js/arconix-flexslider.js', array( 'owl-carousel' ), $this->version, true );
         }
 
         // Load the CSS - Check the child theme directory first, the parent theme second, otherwise load the plugin version

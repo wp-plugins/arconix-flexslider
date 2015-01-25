@@ -5,7 +5,7 @@ class Arconix_FlexSlider {
     /**
      * Holds loop defaults, populated in constructor.
      *
-     * @since   1.0.0
+     * @since   1.0.1
      * @access  protected
      * @var     array       $defaults   default args
      */
@@ -18,7 +18,7 @@ class Arconix_FlexSlider {
      * @version 1.0.0
      */
     function __construct() {
-        $this->defaults = apply_filters( 'arconix_flexslider_function_defaults', array(
+        $this->defaults = array(
             'type'              => 'slider',
             'post_type'         => 'post',
             'category_name'     => '',
@@ -30,7 +30,7 @@ class Arconix_FlexSlider {
             'link_image'        => 1,
             'show_caption'      => 'none',
             'show_content'      => 'none'
-        ) );
+        );
     }
 
     /**
@@ -40,7 +40,7 @@ class Arconix_FlexSlider {
      * @return  array   $defaults   default args
      */
     public function getdefaults() {
-        return $this->defaults;
+        return apply_filters( 'arconix_flexslider_function_defaults', $this->defaults );
     }
 
     /**
@@ -105,34 +105,30 @@ class Arconix_FlexSlider {
      * @param   bool    $link_image     Wrap the image in a hyperlink to the permalink (false for basic image slider)
      * @param   string  $image_size     The size of the image to display. Accepts any valid built-in or added WordPress image size
      * @param   string  $caption        Caption to be displayed
-     * @param   bool    $echo           Echo or return the results
      * @return  string  $s              Slide image
      */
-    public function slide_image( $link_image, $image_size, $caption, $echo = false ) {
+    public function slide_image( $link_image, $image_size, $caption ) {
         if ( ! has_post_thumbnail() ) return;
 
         $id = get_the_ID();
 
         $s = '<div class="arconix-slide-image-wrap">';
 
-        if ( $link_image )
+        if ( $link_image == "true" )
             $s .= '<a href="' . get_permalink() . '" rel="bookmark">';
 
         $s .= get_the_post_thumbnail( $id, $image_size );
 
         $s .= $this->slide_caption( $caption );
 
-        if ( $link_image )
+        if ( $link_image == "true" )
             $s .= '</a>';
 
         $s .= '</div>';
 
         $s = apply_filters( 'arconix_flexslider_slide_image_return', $s, $link_image, $image_size, $caption );
 
-        if ( $echo === true )
-            echo $s;
-        else
-            return $s;
+        return $s;
     }
 
     /**
@@ -144,10 +140,9 @@ class Arconix_FlexSlider {
      *
      * @since   1.0.0
      * @param   string  $caption    The type of image caption to display
-     * @param   bool    $echo       Echo or return the results
      * @return  string  $s          Slide caption wrapped in a paragraph tag
      */
-    public function slide_caption( $caption, $echo = false ) {
+    public function slide_caption( $caption ) {
         if ( empty( $caption ) ) return;
 
         switch( strtolower( $caption ) ) {
@@ -190,10 +185,7 @@ class Arconix_FlexSlider {
 
         $s = apply_filters( 'arconix_flexslider_slide_caption_return', $s, $caption );
 
-        if ( $echo === true )
-            echo $s;
-        else
-            return $s;
+        return $s;
     }
 
     /**
@@ -201,10 +193,9 @@ class Arconix_FlexSlider {
      *
      * @since   1.0.0
      * @param   string  $display    Content to display. Available options are 'none', 'content' and 'excerpt'. Return early if no value or 'none'
-     * @param   bool    $echo       Echo or return the content
      * @return  string  $s          Concatenated string containing the slide content
      */
-    public function slide_content( $display, $echo = false ) {
+    public function slide_content( $display ) {
         if ( ! $display || $display == 'none' ) return;
 
         $s = '<h2 class="arconix-title"><a href="' . get_permalink() . '" rel="bookmark">' . get_the_title() . '</a></h2>';
@@ -227,10 +218,7 @@ class Arconix_FlexSlider {
 
         $s = apply_filters( 'arconix_flexslider_slide_content_return', $s, $display );
 
-        if ( $echo === true )
-            echo $s;
-        else
-            return $s;
+        return $s;
     }
 
 }

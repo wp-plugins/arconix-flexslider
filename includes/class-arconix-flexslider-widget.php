@@ -60,12 +60,14 @@ class Arconix_Flexslider_Widget extends WP_Widget {
      * Widget Output
      *
      * @since   0.1
-     * @version 1.0.0
+     * @version 1.0.1
      *
      * @param   array     $args        Display arguments including before_title, after_title, before_widget, and after_widget.
      * @param   array     $instance    The settings for the particular instance of the widget
      */
     function widget( $args, $instance ) {
+        // Load the javascript if it hasn't been overridden
+        if( wp_script_is( 'arconix-flexslider-js', 'registered' ) ) wp_enqueue_script( 'arconix-flexslider-js' );
 
         extract( $args, EXTR_SKIP );
 
@@ -200,8 +202,7 @@ class Arconix_Flexslider_Widget extends WP_Widget {
                 $sizes = $this->get_image_sizes();
                 foreach( $sizes as $name => $size )
                     echo '<option value="' . $name . '" ' . selected( $name, $instance['image_size'], FALSE ) . '>' . esc_html( $name ) . ' ( ' . $size['width'] . 'x' . $size['height'] . ' )</option>';
-                ?>
-                <option value="full" <?php echo selected( "full", $instance['image_size'], FALSE ); ?> '>' . <?php __( 'Full Size', 'acfs' ); ?></option>
+                    echo '<option value="full" ' . selected( "full", $instance['image_size'], FALSE ) . '>' . esc_html( 'full size', 'acfs' ) . '</option>'; ?>
             </select>
         </p>
 

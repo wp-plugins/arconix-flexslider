@@ -4,7 +4,7 @@ Donate link: http://arcnx.co/acfsdonation
 Tags: arconix, flexslider, slider, carousel, portfolio, testimonial, responsive
 Requires at least: 4.0
 Tested up to: 4.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 
 A multi-purpose responsive slider that supports custom post types and responsive themes.
@@ -84,6 +84,11 @@ That's fantastic! Feel free to submit a pull request over at [Github](http://arc
 4. Slider and carousel setup
 5. Text-focused (testimonials) slider display
 == Changelog ==
+
+= 1.0.1 =
+* Bugfix - The widget should now fire properly
+* Bugfix - Image size dropdown will now act normally
+* Bugfix - `link_image` value now honored correctly
 
 = 1.0.0 =
 **This version represents a significant rewrite of the plugin including a completely different slider script. Best efforts were made to maintain as much backwards compatibility as possible, however some filter names and functions have changed, therefore it is highly recommended that existing users who've made modifications test this update on a local host or staging environment before deploying to a live environment.**
